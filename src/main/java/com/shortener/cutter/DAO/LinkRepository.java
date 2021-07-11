@@ -8,6 +8,6 @@ import java.util.List;
 public interface LinkRepository extends CrudRepository<Link,Long> {
 
     List<Link> findAll ();
-
+    Link save (Link link);
 
 }

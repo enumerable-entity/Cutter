@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-@AllArgsConstructor @NoArgsConstructor
 public class Link {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +25,11 @@ public class Link {
     private LocalDateTime createdAt;
     @Getter @Setter
     private LocalDateTime expireAt;
-
-
+    public Link (){}
+    public Link(String link, String shortLink, LocalDateTime createdAt, LocalDateTime expireAt) {
+        this.link = link;
+        this.shortLink = shortLink;
+        this.createdAt = createdAt;
+        this.expireAt = expireAt;
+    }
 }
