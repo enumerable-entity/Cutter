@@ -4,10 +4,8 @@ import com.shortener.cutter.models.Link;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LinkRepository extends CrudRepository<Link,Long> {
-
-    List<Link> findAll ();
-    Link save (Link link);
-
+    Optional<Link> findByShortLink(String shortLink);
 }
