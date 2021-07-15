@@ -1,0 +1,16 @@
+pipeline{
+    agent {
+        label 'master'
+    }
+    stages{
+        stage("Build"){
+            steps {
+                echo 'print working directory'
+                sh 'pwd'
+            }
+        }
+    }
+
+
+
+}
