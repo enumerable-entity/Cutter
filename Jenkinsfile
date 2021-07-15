@@ -5,7 +5,7 @@ pipeline{
     stages{
         stage("Build&Packaging"){
             steps {
-                sh 'mvn package'
+                sh 'mvn jar:jar'
             }
         }
     }
