@@ -2,6 +2,9 @@ pipeline{
     agent {
         label 'master'
     }
+    options{
+        timestamps()
+    }
     stages{
         stage("Build&Packaging"){
             steps {
