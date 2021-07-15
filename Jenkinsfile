@@ -7,7 +7,7 @@ pipeline{
             steps {
                 sh 'mvn package'
                 cd 'target'
-                ls -la
+                ls '-la'
             }
         }
     }
