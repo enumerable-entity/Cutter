@@ -3,8 +3,7 @@ pipeline{
         label 'master'
     }
     options{
-        buildDiscarder(logRotator(numToKeepStr: '3', artifactNumKeepStr: '3'))
-        timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '3'))
     }
     stages{
         stage("Build&Packaging"){
