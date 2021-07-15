@@ -3,10 +3,9 @@ pipeline{
         label 'master'
     }
     stages{
-        stage("Build"){
+        stage("Build&Packaging"){
             steps {
-                echo 'print working directory'
-                sh 'pwd'
+                sh 'mvn package'
             }
         }
     }
