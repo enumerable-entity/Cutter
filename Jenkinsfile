@@ -21,7 +21,7 @@ pipeline{
         stage("Deploy artifact"){
              steps {
                    sh 'ssh jenkins@enumerable-entity.link'
-                   sh 'docker restart SpringAppCutter'
+                   sh 'docker restart 8b7feaa4604d'
                     }
                 }
     }
