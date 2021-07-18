@@ -6,23 +6,23 @@ pipeline{
         buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '3'))
     }
     stages{
-        stage("Build&Packaging"){
+        stage("Packaging"){
             steps {
                 sh 'mvn package -Dmaven.test.skip=true'
-                sh 'cd target'
-                sh 'ls -la'
             }
         }
-        stage("Docker Image create"){
+        stage("Delivering artifact to AWS"){
             steps {
-                dir ('docker') {
-                    sh 'docker build . '
+                dir ('target') {
+                    sh 'scp cutter-0.0.1-SNAPSHOT.jar jenkins@enumerable-entity.link:/home/jenkins/app'
                 }
             }
         }
-        
+        stage("Deploy artifact"){
+             steps {
+                   sh 'ssh jenkins@enumerable-entity.link'
+                   sh 'docker restart SpringAppCutter'
+                    }
+                }
     }
-
-
-
 }
