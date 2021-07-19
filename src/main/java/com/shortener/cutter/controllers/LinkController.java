@@ -6,6 +6,7 @@ import com.shortener.cutter.services.LinkCutter;
 import com.shortener.cutter.services.LinkPreparator;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,19 +28,21 @@ public class LinkController {
     LinkCutter linkCutter;
 
     @GetMapping("/")
-    String homePage(){
+    String getHomePage(){
     return "index";
     }
 
     @PostMapping("/")
     ModelAndView cutLink (@ModelAttribute("link") String link, Model model){
         var mav = new ModelAndView();
-        String preparedLink = linkPreparator.prepareShortLink(link);
-        String shortedLink = linkCutter.getShortLink(link);
+        String fullLink = linkPreparator.addLinkSchemaIfNotPresent(link);
+        String shortedLink = linkCutter.getShortLink(fullLink);
+        String preparedLink = linkPreparator.prepareShortLink(fullLink);
         mav.setViewName("cutted");
         mav.addObject("link",preparedLink);
-
-        linkRepository.save(new Link(link,shortedLink, LocalDateTime.now(),LocalDateTime.now()));
+        if(!linkRepository.existsByShortLink(shortedLink)) {
+            linkRepository.save(new Link(fullLink, shortedLink, LocalDateTime.now(), LocalDateTime.now()));
+        }
         return mav;
     }
 

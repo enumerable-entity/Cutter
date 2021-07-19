@@ -21,6 +21,9 @@ public class LinkPreparator {
     }
 
     public String prepareShortLink(String url){
-        return prefix + domain +"res/"+ linkCutter.getShortLink(url);
+        return prefix + domain +"r/"+ linkCutter.getShortLink(url);
+    }
+    public String addLinkSchemaIfNotPresent(String url){
+        return (url.startsWith("http://") || url.startsWith("https://"))? url : "https://"+url;
     }
 }

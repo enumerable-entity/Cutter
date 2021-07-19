@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface LinkRepository extends CrudRepository<Link,Long> {
     Optional<Link> findByShortLink(String shortLink);
+    boolean existsByShortLink(String shortLink);
 }
