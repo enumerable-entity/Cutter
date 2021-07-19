@@ -8,7 +8,7 @@ pipeline{
         stages{
             stage("Packaging"){
                 steps {
-                    sh 'mvn package -Pproduction -Dmaven.test.skip=true'
+                    sh 'mvn package -Pprod -Dmaven.test.skip=true'
                 }
             }
             stage("Delivering artifact to AWS"){
