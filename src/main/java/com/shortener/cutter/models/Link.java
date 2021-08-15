@@ -1,8 +1,6 @@
 package com.shortener.cutter.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -24,12 +22,14 @@ public class Link {
     @Getter @Setter
     private LocalDateTime createdAt;
     @Getter @Setter
-    private LocalDateTime expireAt;
+    private LocalDateTime lastTimeAccessed;
+    @Getter @Setter
+    private long timesAccessed;
+
     public Link (){}
-    public Link(String link, String shortLink, LocalDateTime createdAt, LocalDateTime expireAt) {
+    public Link(String link, String shortLink, LocalDateTime createdAt) {
         this.link = link;
         this.shortLink = shortLink;
         this.createdAt = createdAt;
-        this.expireAt = expireAt;
     }
 }

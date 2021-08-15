@@ -1,13 +1,12 @@
 package com.shortener.cutter.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LinkPreparator {
+public class LinkPreparatorService {
 
-    private LinkCutter linkCutter;
+    private LinkCutterService linkCutterService;
 
     @Value("${app.prefix}")
     private String prefix;
@@ -16,12 +15,12 @@ public class LinkPreparator {
     private String domain;
 
 
-    LinkPreparator(LinkCutter linkCutter){
-        this.linkCutter=linkCutter;
+    LinkPreparatorService(LinkCutterService linkCutterService){
+        this.linkCutterService = linkCutterService;
     }
 
     public String prepareShortLink(String url){
-        return prefix + domain +"r/"+ linkCutter.getShortLink(url);
+        return prefix + domain +"r/"+ linkCutterService.getShortLink(url);
     }
     public String addLinkSchemaIfNotPresent(String url){
         return (url.startsWith("http://") || url.startsWith("https://"))? url : "https://"+url;

@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class LinkResolver {
+public class LinkResolverService {
     LinkRepository linkRepository;
 
-    LinkResolver(LinkRepository linkRepository){
+    LinkResolverService(LinkRepository linkRepository){
         this.linkRepository=linkRepository;
     }
     public Optional<Link> resolve (String shortedLink){
