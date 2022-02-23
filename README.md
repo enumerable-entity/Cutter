@@ -1,2 +1,2 @@
-# cutter
-Spring Boot Java URL link shortener
+# Shorty
+Java Spring Boot URL link shortener
