@@ -4,4 +4,4 @@ ENV TZ="Europe/Warsaw"
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar","cutter-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","cutter-0.2.0.jar"]
