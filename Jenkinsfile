@@ -1,37 +1,67 @@
+//file:noinspection GroovyAssignabilityCheck
 pipeline {
-    agent {
-        label 'master'
+
+    agent { label 'RaspberryPi_MasterNode' }
+    tools {
+        maven 'Maven 3.6.3 Rasp'
+        jdk 'Java11 (openjdk) ARM'
     }
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '3'))
-    }
+
+    options { buildDiscarder(logRotator(numToKeepStr: '3', artifactNumToKeepStr: '1')) }
+
+
     stages {
-        stage("Packaging") {
+
+        stage("MVN Clean") {
             steps {
-                sh 'mvn package -Pprod -Dmaven.test.skip=true'
+                withMaven {
+                    sh "mvn clean"
+                }
+            }
+        }
+        stage("Compile source code") {
+            steps {
+                withMaven {
+                    sh "mvn compile -P prod"
+                }
+            }
+        }
+        stage('Unit Tests') {
+            steps {
+                withMaven {
+                    sh 'mvn resources:testResources compiler:testCompile surefire:test'
+                }
+            }
+        }
+
+        stage("Packaging SpringBoot artifact") {
+            steps {
+                withMaven {
+                    sh 'mvn jar:jar spring-boot:repackage -P prod'
+                }
             }
         }
         stage("Delivering artifact to AWS") {
             steps {
                 echo 'Delivering artifact to remote server...'
-                dir('target') {
-                    sh 'scp cutter-0.2.0.jar ubuntu@enumerable-entity.host:/home/ubuntu/app'
+                sshagent(['jenkinsAWSssh']) {
+                    sh 'scp -v -o "StrictHostKeyChecking=no" ./target/*.jar ubuntu@enumerable-entity.host:/home/ubuntu/app/shorty'
                 }
             }
         }
-        stage("Deploy artifact") {
+        stage("SpringBoot runner restarting") {
             steps {
                 script {
                     echo 'Deploying...'
                     sshagent(credentials: ['jenkinsAWSssh']) {
                         sh """ ssh ubuntu@enumerable-entity.host << EOF
-                       docker restart SpringAppCutter
-                       exit
-                       EOF """
+                                          docker restart SpringAppShorty
+                                          exit
+                                          EOF
+                            """
                     }
                 }
             }
         }
     }
 }
-

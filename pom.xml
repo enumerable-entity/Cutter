@@ -9,12 +9,12 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.enumerable-entity</groupId>
-    <artifactId>cutter</artifactId>
+    <artifactId>shorty</artifactId>
     <version>0.2.0</version>
     <packaging>jar</packaging>
-    <name>Cutter</name>
+    <name>Shorty</name>
     <description>Java Spring Boot URL link shortener </description>
-    <url>http://cutter.enumerable-entity.link</url>
+    <url>http://shorty.enumerable-entity.host</url>
     <properties>
         <java.version>11</java.version>
     </properties>
