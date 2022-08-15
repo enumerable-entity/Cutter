@@ -26,13 +26,6 @@ pipeline {
                 }
             }
         }
-        stage('Unit Tests') {
-            steps {
-                withMaven {
-                    sh 'mvn resources:testResources compiler:testCompile surefire:test'
-                }
-            }
-        }
 
         stage("Packaging SpringBoot artifact") {
             steps {
