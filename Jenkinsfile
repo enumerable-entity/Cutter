@@ -48,7 +48,8 @@ pipeline {
                     echo 'Deploying...'
                     sshagent(credentials: ['jenkinsAWSssh']) {
                         sh """ ssh ubuntu@enumerable-entity.host << EOF
-                                          docker restart SpringAppShorty
+                                          cd app/shorty
+                                          docker-compose restart
                                           exit
                                           EOF
                             """
