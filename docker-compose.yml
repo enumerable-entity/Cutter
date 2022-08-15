@@ -1,0 +1,8 @@
+version: '3.8'
+
+services:
+  spring_app:
+    image: motherdock/java:javaRunner
+
+
+

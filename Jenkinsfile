@@ -1,3 +1,4 @@
+
 pipeline{
         agent {
             label 'master'
@@ -15,7 +16,7 @@ pipeline{
                 steps {
                     echo 'Delivering artifact to remote server...'
                     dir ('target') {
-                        sh 'scp cutter-0.0.1-SNAPSHOT.jar ubuntu@enumerable-entity.link:/home/ubuntu/app'
+                        sh 'scp cutter-0.0.1-SNAPSHOT.jar ubuntu@enumerable-entity.host:/home/ubuntu/app'
                     }
                 }
             }
@@ -24,7 +25,7 @@ pipeline{
                      script{
                      echo 'Deploying...'
                      sshagent(credentials:['jenkinsAWSssh']){
-                       sh """ ssh ubuntu@enumerable-entity.link << EOF
+                       sh """ ssh ubuntu@enumerable-entity.host << EOF
                        docker restart SpringAppCutter
                        exit
                        EOF """
