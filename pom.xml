@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.enumerable-entity</groupId>
     <artifactId>shorty</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.2</version>
     <packaging>jar</packaging>
     <name>Shorty</name>
     <description>Java Spring Boot URL link shortener </description>
